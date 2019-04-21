@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import styled from 'styled-components';
+import { Route } from 'react-router-dom';
 
-const AppDiv = styled.div`
-  witdth: 100%;
-  height: 1000px;
-`;
+// import styled from 'styled-components';
+
+import NavBar from './components/NavBar.js';
+import Marketplace from './components/Marketplace/Marketplace.js';
+import Login from './components/LoginPage.js';
+import Register from './components/SignUpPage.js';
+import UserPage from './components/UserPage.js';
+
 
 class App extends Component {
   render() {
     return (
-      <AppDiv>
-        <h1>Home</h1>
-      </AppDiv>
+      <div className="App">
+        <Route path='/' component={NavBar} />
+        <Route exact path='/' component={Marketplace} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/user' component={UserPage} />
+      </div>
     );
   }
 }
