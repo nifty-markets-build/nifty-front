@@ -10,6 +10,8 @@ import {
     Input,
     Button
 } from 'reactstrap';
+import { connect } from 'react-redux';
+import { registerUser } from '../actions';
 
 import haloHero from '../images/haloHero.jpg';
 
@@ -36,48 +38,109 @@ const LabelStylingDiv = styled.div`
 `;
 
 class SignUpPage extends React.Component {
+    state = {
+        username: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        address: ""
+    }
+
+    changeHandler = e => {
+        e.preventDefault();
+        this.setState({
+            ...this.state,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    onSubmit = e => {
+        e.preventDefault();
+        this.props.registerUser(this.state);
+        // this.setState({
+        //     username: "",
+        //     password: "",
+        //     firstName: "",
+        //     lastName: "",
+        //     email: "",
+        //     address: ""
+        // });
+        this.props.history.push('/login');
+    }
+
     render() {
         return (
             <RegisterDiv>
                 <RegisterFormDiv>
-                    <Form>
+                    <Form onSubmit={this.onSubmit}>
                         <FormGroup>
                             <LabelStylingDiv><Label for="username">Username</Label></LabelStylingDiv>
-                            <Input type="username" name="username" placeholder="Enter a username..." />
+                            <Input 
+                                type="username" 
+                                name="username" 
+                                placeholder="Enter a username..."
+                                onChange={this.changeHandler}
+                            />
                         </FormGroup>
 
                         <FormGroup>
                             <LabelStylingDiv><Label for="password">Password</Label></LabelStylingDiv>
-                            <Input type="password" name="password" placeholder="Enter a password..." />
+                            <Input 
+                                type="password" 
+                                name="password" 
+                                placeholder="Enter a password..."
+                                onChange={this.changeHandler}
+                            />
                         </FormGroup>
 
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
                                     <LabelStylingDiv><Label for="firstName">First Name</Label></LabelStylingDiv>
-                                    <Input type="firstName" name="firstName" placeholder="Enter your first name..." />
+                                    <Input 
+                                        type="firstName" 
+                                        name="firstName" 
+                                        placeholder="Enter your first name..."
+                                        onChange={this.changeHandler}
+                                    />
                                 </FormGroup>
                             </Col>
 
                             <Col md={6}>
                                 <FormGroup>
                                     <LabelStylingDiv><Label for="lastName">Last Name</Label></LabelStylingDiv>
-                                    <Input type="lastName" name="lastName" placeholder="Enter your last name..." />
+                                    <Input 
+                                        type="lastName" 
+                                        name="lastName" 
+                                        placeholder="Enter your last name..."
+                                        onChange={this.changeHandler}
+                                    />
                                 </FormGroup>
                             </Col>
                         </Row>
 
                         <FormGroup>
                             <LabelStylingDiv><Label for="email">Email</Label></LabelStylingDiv>
-                            <Input type="email" name="email" placeholder="Enter your email..." />
+                            <Input 
+                                type="email" 
+                                name="email" 
+                                placeholder="Enter your email..."
+                                onChange={this.changeHandler}
+                            />
                         </FormGroup>
 
                         <FormGroup>
                             <LabelStylingDiv><Label for="address">Address</Label></LabelStylingDiv>
-                            <Input type="address" name="address" placeholder="Enter your address..." />
+                            <Input 
+                                type="address" 
+                                name="address" 
+                                placeholder="Enter your address..."
+                                onChange={this.changeHandler}
+                            />
                         </FormGroup>
 
-                        <Button>Register</Button>
+                        <Button type="submit">Register</Button>
                     </Form>
                 </RegisterFormDiv>
             </RegisterDiv>
@@ -85,4 +148,4 @@ class SignUpPage extends React.Component {
     }
 }
 
-export default SignUpPage;
+export default connect(null, { registerUser })(SignUpPage);
