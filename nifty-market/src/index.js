@@ -14,9 +14,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import marketplaceReducer from './reducers/marketReducer.js';
+import userReducer from './reducers/userReducer.js';
 
 const reducers = combineReducers({
-    marketplace: marketplaceReducer
+    marketplace: marketplaceReducer,
+    user: userReducer
 });
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
